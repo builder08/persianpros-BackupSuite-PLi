@@ -375,6 +375,9 @@ else
 		dd if=/dev/mmcblk0p12 of=$WORKDIR/$KERNELNAME
 		log "Kernel resides on /dev/mmcblk0p12"
 	elif [ $SEARCH = "hd60" -o $SEARCH = "hd61" -o $SEARCH = "h9se.s" $SEARCH = "h9se.2s" $SEARCH = "h9se.2h" -o $SEARCH = "h9combo" -o $SEARCH = "h9twin" -o $SEARCH = "h9combose" -o $SEARCH = "h9twinse" -o $SEARCH = "h10" -o $SEARCH = "h11" ] ; then
+		dd if=/dev/mmcblk0p19 of=$WORKDIR/$KERNELNAME
+		log "Kernel resides on /dev/mmcblk0p19"
+	elif [ $SEARCH = "multibox" -o $SEARCH = "multiboxse" ] ; then
 		$LIBDIR/enigma2/python/Plugins/Extensions/BackupSuite/findkerneldevice.sh
 		KERNEL=`readlink -n /dev/kernel`
 		log "Kernel resides on $KERNEL"
