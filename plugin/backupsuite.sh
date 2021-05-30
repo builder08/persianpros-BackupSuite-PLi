@@ -439,6 +439,22 @@ elif [ $ACTION = "reboot" ] ; then
 elif [ $ACTION = "force" ] ; then
 	echo "rename this file to 'force.update' to be able to flash this backup" > "$MAINDEST/noforce.update"
 	echo "Rename the file in the folder /vuplus/$SEARCH/noforce.update to /vuplus/$SEARCH/force.update to flash this image"
+elif [ $ACTION = "no" ] ; then
+	if [ $SHORTSOC = "hisi" ] ; then
+	        echo "Rename the unforce_$SEARCH.txt to force_$SEARCH.txt and move it to the root of your usb-stick. When you enter the recovery menu then it will force to install the this image in the linux1 selection." > "$MAINDEST/unforce_$SEARCH.txt";
+	elif [ $SHOWNAME = "vuplus" ] ; then
+		echo "rename this file to 'force.update' to force an update without confirmation" > "$MAINDEST/reboot.update"
+	else
+		echo "rename this file to 'force' to force an update without confirmation" > "$MAINDEST/noforce";
+	fi
+elif [ $ACTION = "yes" ] ; then
+	if [ $SHORTSOC = "hisi" ] ; then
+		echo "Rename the force_$SEARCH.txt to unforce_$SEARCH.txt and move it to the root of your usb-stick" > "$MAINDEST/force_$SEARCH.txt";
+	elif [ $SHOWNAME = "vuplus" ] ; then
+		echo "rename this file to 'reboot.update' to not force an update without confirmation" > "$MAINDEST/force.update"
+	else
+		echo "rename this file to 'noforce' to not force an update without confirmation" > "$MAINDEST/force";
+	fi	
 fi
 image_version > "$MAINDEST/imageversion"
 if [ $SEARCH = "h9" -o $SEARCH = "h9se" -o $SEARCH = "h9combo" -o $SEARCH = "h9combose" -o $SEARCH = "i55plus" -o $SEARCH = "i55se" -o $SEARCH = "h10" -o $SEARCH = "hzero" -o $SEARCH = "h8" -o $SEARCH = "h8.2h" -o $SEARCH = "h9.s" -o $SEARCH = "h9.t" -o $SEARCH = "h9.2h" -o $SEARCH = "h9.2s" -o $SEARCH = "h9twin" ] ; then
