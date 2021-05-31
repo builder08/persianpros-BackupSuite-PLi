@@ -460,6 +460,7 @@ fi
 unforce > "$EXTRA/unforce_$SEARCH.txt"
 if [ $SEARCH = "multibox" -o $SEARCH = "multiboxse" ] ; then
 	echo "Rename the unforce_$SEARCH.txt to force_$SEARCH.txt and move it to the root of your usb-stick. When you enter the recovery menu then it will force to install the image $BACKUPVER-$SEARCH-$IMAGEDATE.zip in the linux1 selection." > "$MAINDEST/force_$SEARCH.READ.ME";
+        echo "Warning! The name of the archive for the firmware should look like this: $BACKUPVER-$SEARCH-$IMAGEDATE.zip" > "$MAINDEST/README.txt";
 fi
 if  [ $HARDDISK != 1 ]; then
 	mkdir -p "$EXTRA"
