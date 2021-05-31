@@ -96,6 +96,11 @@ echo "Enigma2 = $ENIGMA2DATE"
 echo
 echo $LINE
 }
+############################ DEFINE UNFORCE #############################
+unforce()
+{
+echo "$BACKUPVER-$SEARCH-$IMAGEDATE.zip"
+}
 #################### CLEAN UP AND MAKE DESTINATION FOLDERS ####################
 make_folders()
 {
@@ -149,6 +154,8 @@ if [ -f "$LIBDIR/enigma2/python/Plugins/Extensions/BackupSuite/speed.txt" ] ; th
 else
 	ESTSPEED="250"
 fi
+IMAGEDATE=`date -r /etc/version +%Y%m%d_usb`
+BACKUPVER=`cat /etc/issue | grep . | tail -n 1 | cut -c -11`
 FLASHED=`date -r /etc/version +%Y.%m.%d_%H:%M`
 ISSUE=`cat /etc/issue | grep . | tail -n 1 `
 IMVER=${ISSUE%?????}
@@ -371,10 +378,10 @@ else
 	elif [ $SEARCH = "duo4k" -o $SEARCH = "vuduo4k" -o $SEARCH = "duo4kse" -o $SEARCH = "vuduo4kse" ] ; then
 		dd if=/dev/mmcblk0p6 of=$WORKDIR/$KERNELNAME
 		log "Kernel resides on /dev/mmcblk0p6"
-	elif [ $SEARCH = "sf8008" -o $SEARCH = "sf8008m" -o $SEARCH = "ustym4kpro" -o $SEARCH = "gbtrio4k" -o $SEARCH = "gbip4k" -o $SEARCH = "viper4k" -o $SEARCH = "beyonwizv2" ] ; then
+	elif [ $SEARCH = "sf8008" -o $SEARCH = "sf8008m" -o $SEARCH = "ustym4kpro" -o $SEARCH = "viper4k" ] ; then
 		dd if=/dev/mmcblk0p12 of=$WORKDIR/$KERNELNAME
 		log "Kernel resides on /dev/mmcblk0p12"
-	elif [ $SEARCH = "hd60" -o $SEARCH = "hd61" -o $SEARCH = "h9se.s" $SEARCH = "h9se.2s" $SEARCH = "h9se.2h" -o $SEARCH = "h9combo" -o $SEARCH = "h9twin" -o $SEARCH = "h9combose" -o $SEARCH = "h9twinse" -o $SEARCH = "h10" -o $SEARCH = "h11" ] ; then
+	elif [ $SEARCH = "hd60" -o $SEARCH = "hd61" ] ; then
 		dd if=/dev/mmcblk0p19 of=$WORKDIR/$KERNELNAME
 		log "Kernel resides on /dev/mmcblk0p19"
 	elif [ $SEARCH = "multibox" -o $SEARCH = "multiboxse" ] ; then
@@ -438,23 +445,7 @@ elif [ $ACTION = "reboot" ] ; then
 	echo "rename this file to 'force.update' to force an update without confirmation" > "$MAINDEST/reboot.update"
 elif [ $ACTION = "force" ] ; then
 	echo "rename this file to 'force.update' to be able to flash this backup" > "$MAINDEST/noforce.update"
-	echo "Rename the file in the folder /vuplus/$SEARCH/noforce.update to /vuplus/$SEARCH/force.update to flash this image"
-elif [ $ACTION = "no" ] ; then
-	if [ $SHORTSOC = "hisi" ] ; then
-	        echo "Rename the unforce_$SEARCH.txt to force_$SEARCH.txt and move it to the root of your usb-stick. When you enter the recovery menu then it will force to install the this image in the linux1 selection." > "$MAINDEST/unforce_$SEARCH.txt";
-	elif [ $SHOWNAME = "vuplus" ] ; then
-		echo "rename this file to 'force.update' to force an update without confirmation" > "$MAINDEST/reboot.update"
-	else
-		echo "rename this file to 'force' to force an update without confirmation" > "$MAINDEST/noforce";
-	fi
-elif [ $ACTION = "yes" ] ; then
-	if [ $SHORTSOC = "hisi" ] ; then
-		echo "Rename the force_$SEARCH.txt to unforce_$SEARCH.txt and move it to the root of your usb-stick" > "$MAINDEST/force_$SEARCH.txt";
-	elif [ $SHOWNAME = "vuplus" ] ; then
-		echo "rename this file to 'reboot.update' to not force an update without confirmation" > "$MAINDEST/force.update"
-	else
-		echo "rename this file to 'noforce' to not force an update without confirmation" > "$MAINDEST/force";
-	fi	
+	echo "Rename the file in the folder /vuplus/$SEARCH/noforce.update to /vuplus/$SEARCH/force.update to flash this image"		
 fi
 image_version > "$MAINDEST/imageversion"
 if [ $SEARCH = "h9" -o $SEARCH = "h9se" -o $SEARCH = "h9combo" -o $SEARCH = "h9combose" -o $SEARCH = "i55plus" -o $SEARCH = "i55se" -o $SEARCH = "h10" -o $SEARCH = "hzero" -o $SEARCH = "h8" -o $SEARCH = "h8.2h" -o $SEARCH = "h9.s" -o $SEARCH = "h9.t" -o $SEARCH = "h9.2h" -o $SEARCH = "h9.2s" -o $SEARCH = "h9twin" ] ; then
@@ -465,6 +456,10 @@ if [ $SEARCH = "h9" -o $SEARCH = "h9se" -o $SEARCH = "h9combo" -o $SEARCH = "h9c
 	cp -r "$MAINDEST/bootargs.bin" "$MEDIA/zgemma/bootargs.bin" > /dev/null 2>&1
 	dd if=/dev/mtd2 of=$MAINDEST/baseparam.bin > /dev/null 2>&1
 	dd if=/dev/mtd3 of=$MAINDEST/pq_param.bin > /dev/null 2>&1
+fi
+unforce > "$EXTRA/unforce_$SEARCH.txt"
+if [ $SEARCH = "multibox" -o $SEARCH = "multiboxse" ] ; then
+	echo "Rename the unforce_$SEARCH.txt to force_$SEARCH.txt and move it to the root of your usb-stick. When you enter the recovery menu then it will force to install the image $BACKUPVER-$SEARCH-$IMAGEDATE.zip in the linux1 selection." > "$MAINDEST/force_$SEARCH.READ.ME";
 fi
 if  [ $HARDDISK != 1 ]; then
 	mkdir -p "$EXTRA"
