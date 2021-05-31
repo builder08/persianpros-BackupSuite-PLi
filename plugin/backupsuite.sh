@@ -154,7 +154,7 @@ if [ -f "$LIBDIR/enigma2/python/Plugins/Extensions/BackupSuite/speed.txt" ] ; th
 else
 	ESTSPEED="250"
 fi
-IMAGEDATE=`date -r /etc/version +%Y%m%d_usb`
+IMAGEDATE=`date -r /etc/version +%Y%m%d_mmc`
 BACKUPVER=`cat /etc/issue | grep . | tail -n 1 | cut -c -11`
 FLASHED=`date -r /etc/version +%Y.%m.%d_%H:%M`
 ISSUE=`cat /etc/issue | grep . | tail -n 1 `
