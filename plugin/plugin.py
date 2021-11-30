@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from __future__ import print_function
-from schermen import *
+from .schermen import *
 import os
 import gettext
 import enigma
