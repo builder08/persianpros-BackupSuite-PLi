@@ -385,6 +385,9 @@ else
 		dd if=/dev/mmcblk0p19 of=$WORKDIR/$KERNELNAME
 		log "Kernel resides on /dev/mmcblk0p19"
 	elif [ $SEARCH = "multibox" -o $SEARCH = "multiboxse" ] ; then
+	        dd if=/dev/mmcblk0p20 of=$WORKDIR/$KERNELNAME
+		log "Kernel resides on /dev/mmcblk0p20"
+	elif [ $SEARCH = "pulse4k" -o $SEARCH = "pulse4kmini" ] ; then
 		$LIBDIR/enigma2/python/Plugins/Extensions/BackupSuite/findkerneldevice.sh
 		KERNEL=`readlink -n /dev/kernel`
 		log "Kernel resides on $KERNEL"
@@ -458,7 +461,7 @@ if [ $SEARCH = "h9" -o $SEARCH = "h9se" -o $SEARCH = "h9combo" -o $SEARCH = "h9c
 	dd if=/dev/mtd3 of=$MAINDEST/pq_param.bin > /dev/null 2>&1
 fi
 unforce > "$EXTRA/unforce_$SEARCH.txt"
-if [ $SEARCH = "multibox" -o $SEARCH = "multiboxse" ] ; then
+if [ $SEARCH = "multibox" -o $SEARCH = "multiboxse" -o $SEARCH = "pulse4k" -o $SEARCH = "pulse4kmini" ] ; then
 	echo "Rename the unforce_$SEARCH.txt to force_$SEARCH.txt and move it to the root of your usb-stick. When you enter the recovery menu then it will force to install the image $BACKUPVER-$SEARCH-$IMAGEDATE.zip in the linux1 selection." > "$MAINDEST/force_$SEARCH.READ.ME";
         echo "Warning! The name of the archive for the firmware should look like this: $BACKUPVER-$SEARCH-$IMAGEDATE.zip" > "$MAINDEST/README.txt";
 fi
