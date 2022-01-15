@@ -263,5 +263,5 @@ Zgemma I55 Plus	i55plus	Zgemma I55 Plus	/zgemma/i55plus	/fullbackup_i55plus	/zge
 Zgemma I55 SE	i55se	Zgemma I55 SE	/zgemma/i55se	/fullbackup_i55se	/zgemma	-m 2048 -e 126976 -c 8192	-m 2048 -p 128KiB	rootfs.ubi	uImage	none
 Zgemma LC	lc	Zgemma LC	/zgemma/lc	/fullbackup_lc	/zgemma	-m 2048 -e 126976 -c 4096	-m 2048 -p 128KiB	rootfs.bin	kernel.bin	noforce
 Zgemma SH1	sh1	Zgemma SH1	/zgemma/sh1	/fullbackup_sh1	/zgemma	-m 2048 -e 126976 -c 4096	-m 2048 -p 128KiB	rootfs.bin	kernel.bin	noforce
-AB-COM PULSe 4K	      pulse4k 	     AB-COM PULSe 4K	    /pulse4k	   /fullbackup_pulse4k		rootfs.tar.bz2	uImage	none
-AB-COM PULSe 4K MINI   pulse4kmini    AB-COM PULSe 4K MINI    /pulse4kmini   /fullbackup_pulse4kmini	rootfs.tar.bz2	uImage	none
+ABCOM PULSe4K	pulse4k	ABCOM PULSe4K	/pulse4k	/fullbackup_pulse4k				rootfs.tar.bz2	uImage	none
+ABCOM PULSe4KMINI	pulse4kmini	ABCOM PULSe4KMINI	/pulse4kmini	/fullbackup_pulse4kmini				rootfs.tar.bz2	uImage	none
